@@ -39,6 +39,12 @@ st.markdown(f"""
         color: {TECH_COLORS['text_main']};
     }}
 
+    [data-testid="stAppViewContainer"] .main .block-container {{
+        max-width: 1280px;
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+    }}
+
     header[data-testid="stHeader"] {{
         background: rgba(255,255,255,0.95) !important;
         backdrop-filter: blur(8px);
@@ -526,7 +532,7 @@ with tab1:
     ))
     update_fig_layout(fig_mom, "", is_cost_chart=True)
     fig_mom.update_layout(yaxis=dict(dtick=20000), xaxis=dict(tickformat="%Y-%m"), showlegend=False, margin=dict(t=40))
-    st.plotly_chart(fig_mom, use_container_width=True)
+    st.plotly_chart(fig_mom, width="stretch")
 
     st.subheader("月度成本变动归因拆解")
     st.markdown(
@@ -572,7 +578,7 @@ with tab1:
     ), secondary_y=True)
     update_fig_layout(fig_diff_structure, "", is_cost_chart=True)
     fig_diff_structure.update_layout(barmode='relative', yaxis_title="成本变动金额 (USD)", yaxis2_title="人数变动 (人)", xaxis=dict(tickformat="%Y-%m"))
-    st.plotly_chart(fig_diff_structure, use_container_width=True)
+    st.plotly_chart(fig_diff_structure, width="stretch")
 
     st.subheader("维度 A：人力规模与薪酬结构趋势")
     st.markdown(
@@ -663,7 +669,7 @@ with tab1:
         yaxis2_title="人数 (人)",
         xaxis=dict(tickformat="%Y-%m", dtick="M1", tickangle=-45)
     )
-    st.plotly_chart(fig_combined, use_container_width=True)
+    st.plotly_chart(fig_combined, width="stretch")
 
 with tab2:
     c1, c2 = st.columns(2)
@@ -697,7 +703,7 @@ with tab2:
                 paper_bgcolor='rgba(0,0,0,0)',
                 plot_bgcolor='rgba(0,0,0,0)'
             )
-            st.plotly_chart(fig_b, use_container_width=True)
+            st.plotly_chart(fig_b, width="stretch")
 
     with c2:
         st.subheader("维度 C：职能人均成本构成")
@@ -755,7 +761,7 @@ with tab2:
             yaxis_title="人均成本 (USD/月)",
             legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="center", x=0.5)
         )
-        st.plotly_chart(fig_c_stack, use_container_width=True)
+        st.plotly_chart(fig_c_stack, width="stretch")
 
 with tab3:
     st.subheader("维度 D：预测 vs. 实际 (Burn Rate)")
@@ -811,7 +817,7 @@ with tab3:
         yaxis_title="人力成本消耗 (USD)",
         xaxis=dict(tickformat="%Y-%m", dtick="M1", tickangle=-45)
     )
-    st.plotly_chart(fig_e, use_container_width=True)
+    st.plotly_chart(fig_e, width="stretch")
 
 with st.expander("明细台账（按需展开）", expanded=False):
     st.dataframe(
