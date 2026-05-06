@@ -34,7 +34,7 @@ TECH_COLORS = {
 st.markdown(f"""
     <style>
     html, body, [data-testid="stAppViewContainer"] {{
-        font-size: 18px !important;
+        font-size: 20px !important;
         background-color: {TECH_COLORS['background']};
         color: {TECH_COLORS['text_main']};
     }}
@@ -53,28 +53,28 @@ st.markdown(f"""
     }}
     
     h1 {{ 
-        font-size: 34px !important;
+        font-size: 36px !important;
         font-weight: 700 !important;
         letter-spacing: 0.2px !important;
         color: {TECH_COLORS['text_main']} !important;
         margin-bottom: 0.25rem !important;
     }}
     h2 {{ 
-        font-size: 28px !important;
+        font-size: 30px !important;
         font-weight: 800 !important;
         color: {TECH_COLORS['text_main']} !important;
         margin-top: 1.25rem !important;
         margin-bottom: 0.75rem !important;
     }}
     h3 {{ 
-        font-size: 20px !important;
+        font-size: 22px !important;
         font-weight: 800 !important;
         color: {TECH_COLORS['text_main']} !important;
         margin-top: 1rem !important;
     }}
 
     .meta-line {{
-        font-size: 18px;
+        font-size: 20px;
         color: {TECH_COLORS['neutral']};
         margin-top: 0.25rem;
         margin-bottom: 1rem;
@@ -89,12 +89,12 @@ st.markdown(f"""
         border: 1px solid {TECH_COLORS['border']} !important;
     }}
     div[data-testid="stMetricLabel"] > div {{
-        font-size: 20px !important;
-        font-weight: 800 !important;
+        font-size: 24px !important;
+        font-weight: 900 !important;
         color: {TECH_COLORS['text_main']} !important;
     }}
     div[data-testid="stMetricValue"] > div {{
-        font-size: 40px !important;
+        font-size: 42px !important;
         font-weight: 800 !important;
         color: {TECH_COLORS['primary']} !important;
     }}
@@ -105,10 +105,10 @@ st.markdown(f"""
         background: #FFFFFF !important;
     }}
     section[data-testid="stSidebar"] h2 {{
-        font-size: 20px !important;
+        font-size: 22px !important;
     }}
     .stMultiSelect label, .stSelectbox label {{
-        font-size: 18px !important;
+        font-size: 20px !important;
         font-weight: 700 !important;
     }}
     
@@ -132,7 +132,7 @@ st.markdown(f"""
     div[data-testid="stTabs"] [data-baseweb="tab"] {{
         padding: 8px 14px !important;
         border-radius: 999px !important;
-        font-size: 18px !important;
+        font-size: 20px !important;
         font-weight: 800 !important;
         color: {TECH_COLORS['text_sub']} !important;
         background: transparent !important;
@@ -149,19 +149,18 @@ st.markdown(f"""
         transform: translateY(-1px);
     }}
 
-    /* Sidebar Select/MultiSelect：去掉不协调的“红色”选中背景，统一为清爽蓝灰体系 */
     section[data-testid="stSidebar"] [data-baseweb="select"] > div {{
-        background: rgba(255,255,255,0.95) !important;
+        background: #FFFFFF !important;
         border: 1px solid {TECH_COLORS['border']} !important;
         border-radius: 10px !important;
         box-shadow: none !important;
     }}
     section[data-testid="stSidebar"] [data-baseweb="select"] > div:focus-within {{
-        border-color: rgba(13,110,253,0.35) !important;
-        box-shadow: 0 0 0 4px rgba(13,110,253,0.12) !important;
+        border-color: rgba(13,110,253,0.45) !important;
+        box-shadow: {TECH_COLORS['active_shadow']} !important;
     }}
     section[data-testid="stSidebar"] [data-baseweb="tag"] {{
-        background: rgba(13,110,253,0.10) !important;
+        background: rgba(13,110,253,0.08) !important;
         border: 1px solid rgba(13,110,253,0.18) !important;
         color: {TECH_COLORS['primary']} !important;
         border-radius: 999px !important;
@@ -187,7 +186,7 @@ st.markdown(f"""
         margin: 8px 0 16px 0;
     }}
     .guide-box p {{
-        font-size: 18px;
+        font-size: 20px;
         font-weight: 600;
         color: {TECH_COLORS['primary']};
         margin: 0;
@@ -353,24 +352,63 @@ if not df_filtered.empty:
     latest_date = df_filtered['月份'].max()
     curr_data = df_filtered[df_filtered['月份'] == latest_date]
     
+    total_all_cost = df_detail['每月总人力(USD)'].sum() if '每月总人力(USD)' in df_detail.columns else 0
     total_hc = len(curr_data)
     total_last_month_cost = curr_data['每月总人力(USD)'].sum()
     total_period_cost = df_filtered['每月总人力(USD)'].sum()
     avg_cost = (total_last_month_cost / total_hc) if total_hc > 0 else 0
     
-    col1, col2, col3, col4 = st.columns(4)
-    with col1:
-        st.metric("分析周期总成本", f"${total_period_cost/1000:.1f}k", 
-                  help="计算逻辑：当前所选时间范围内所有月份的“每月总人力(USD)”累计总和。")
-    with col2:
-        st.metric("分析周期末总人数", f"{total_hc} 人", 
-                  help="计算逻辑：当前所选时间范围中最后一个月的总人数（Headcount）。")
-    with col3:
-        st.metric("分析周期末总成本", f"${total_last_month_cost/1000:.1f}k", 
-                  help="计算逻辑：对应数据源“明细”表中最后一个月的“每月总人力(USD)”列之和。所有数值以 USD 结算。")
-    with col4:
-        st.metric("周期末人均单价", f"${avg_cost/1000:.1f}k", 
-                  help="计算逻辑：分析周期末总成本 ÷ 分析周期末总人数。")
+    r1c1, r1c2, r1c3, r1c4 = st.columns(4)
+    with r1c1:
+        st.metric(
+            "累计总成本",
+            f"${total_all_cost/1000:.1f}k",
+            help="计算逻辑：不随筛选条件变化。基于数据源“明细/Sheet1”全量数据的“每月总人力(USD)”累计总和，用于作为项目总盘的固定参照。"
+        )
+    with r1c2:
+        st.metric(
+            "分析周期总成本",
+            f"${total_period_cost/1000:.1f}k",
+            help="计算逻辑：当前所选时间范围内所有月份的“每月总人力(USD)”累计总和。"
+        )
+    with r1c3:
+        st.metric(
+            "分析周期末总人数",
+            f"{total_hc} 人",
+            help="计算逻辑：当前所选时间范围中最后一个月的总人数（Headcount）。"
+        )
+    with r1c4:
+        st.metric(
+            "分析周期末总成本",
+            f"${total_last_month_cost/1000:.1f}k",
+            help="计算逻辑：对应数据源“明细”表中最后一个月的“每月总人力(USD)”列之和。所有数值以 USD 结算。"
+        )
+
+    r2c1, r2c2, r2c3, r2c4 = st.columns(4)
+    with r2c1:
+        st.metric(
+            "周期末人均单价",
+            f"${avg_cost/1000:.1f}k",
+            help="计算逻辑：分析周期末总成本 ÷ 分析周期末总人数。"
+        )
+    with r2c2:
+        st.metric(
+            "人效",
+            "待接入",
+            help="预留指标。常见口径：收入/人（或产出/人）。需接入“收入/产出”数据字段后启用。"
+        )
+    with r2c3:
+        st.metric(
+            "人工成本率",
+            "待接入",
+            help="预留指标。常见口径：人工成本 ÷ 收入（或总成本）。需接入“收入”字段并确认口径后启用。"
+        )
+    with r2c4:
+        st.metric(
+            "人工成本毛利率",
+            "待接入",
+            help="预留指标。常见口径：(毛利 - 人工成本) ÷ 毛利 或 1 - 人工成本/毛利。需接入“毛利”字段并确认口径后启用。"
+        )
 else:
     st.warning("当前筛选条件下无数据，请调整筛选器。")
     st.stop()
@@ -384,16 +422,16 @@ def update_fig_layout(fig, title, is_cost_chart=False):
     fig.update_layout(
         title=dict(
             text=f"<b>{title}</b>", 
-            font=dict(size=20, color=TECH_COLORS['text_main']), 
+            font=dict(size=22, color=TECH_COLORS['text_main']), 
             x=0, y=0.98
         ),
         template="plotly_white",
         hovermode="closest", 
         clickmode="event+select",
-        font=dict(size=16, color=TECH_COLORS['text_sub']), 
+        font=dict(size=18, color=TECH_COLORS['text_sub']), 
         hoverlabel=dict(
             bgcolor="white",
-            font_size=17, 
+            font_size=19, 
             font_family="PingFang SC, Microsoft YaHei",
             bordercolor=TECH_COLORS['primary'],
             namelength=-1
@@ -402,15 +440,15 @@ def update_fig_layout(fig, title, is_cost_chart=False):
             orientation="h", 
             yanchor="bottom", y=1.02, 
             xanchor="right", x=1,
-            font=dict(size=16) 
+            font=dict(size=18) 
         ),
         margin=dict(l=60, r=60, t=100, b=60),
         plot_bgcolor='rgba(0,0,0,0)',
         paper_bgcolor='rgba(0,0,0,0)',
         xaxis=dict(
             showgrid=False, 
-            tickfont=dict(size=16),
-            title_font=dict(size=16),
+            tickfont=dict(size=18),
+            title_font=dict(size=18),
             linecolor='#E5E6EB',
             showspikes=True,
             spikemode='across',
@@ -422,8 +460,8 @@ def update_fig_layout(fig, title, is_cost_chart=False):
         ),
         yaxis=dict(
             gridcolor='#F0F2F5', 
-            tickfont=dict(size=16),
-            title_font=dict(size=16),
+            tickfont=dict(size=18),
+            title_font=dict(size=18),
             zeroline=False,
             showspikes=True,
             spikemode='across',
