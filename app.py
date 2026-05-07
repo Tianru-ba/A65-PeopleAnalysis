@@ -362,6 +362,8 @@ if not df_filtered.empty:
     total_hc = len(curr_data)
     total_last_month_cost = curr_data['每月总人力(USD)'].sum()
     total_period_cost = df_filtered['每月总人力(USD)'].sum()
+    months_in_period = df_filtered['月份'].dt.to_period('M').nunique()
+    avg_period_monthly_cost = (total_period_cost / months_in_period) if months_in_period > 0 else 0
     avg_cost = (total_last_month_cost / total_hc) if total_hc > 0 else 0
     
     r1c1, r1c2, r1c3, r1c4 = st.columns(4)
@@ -373,9 +375,9 @@ if not df_filtered.empty:
         )
     with r1c2:
         st.metric(
-            "分析周期总成本",
-            f"${total_period_cost/1000:.1f}k",
-            help="计算逻辑：当前所选时间范围内所有月份的“每月总人力(USD)”累计总和。"
+            "分析周期月均成本",
+            f"${avg_period_monthly_cost/1000:.1f}k",
+            help="计算逻辑：分析周期总成本 ÷ 分析周期月份数（按 YYYY-MM 去重）。用于衡量周期内平均月度消耗水平。"
         )
     with r1c3:
         st.metric(
