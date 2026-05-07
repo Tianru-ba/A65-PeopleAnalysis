@@ -92,13 +92,12 @@ st.markdown(f"""
         padding: 18px 20px !important;
         border-radius: 12px !important;
         box-shadow: {TECH_COLORS['shadow']} !important;
-        border: 1px solid {TECH_COLORS['border']} !important;
-        transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
+        border: none !important;
+        transition: transform 140ms ease, box-shadow 140ms ease;
     }}
     div[data-testid="stMetric"]:hover {{
         transform: translateY(-2px);
-        box-shadow: 0 16px 44px rgba(0,0,0,0.10) !important;
-        border-color: rgba(13,110,253,0.16) !important;
+        box-shadow: 0 16px 44px rgba(0,0,0,0.10), 0 0 0 4px rgba(13,110,253,0.10) !important;
     }}
     div[data-testid="stMetric"]:active {{
         transform: translateY(-1px);
@@ -238,11 +237,13 @@ st.markdown(f"""
     div[data-testid="stPlotlyChart"] {{
         background: transparent !important;
         border: none !important;
-        box-shadow: none !important;
-        transition: transform 140ms ease;
+        box-shadow: {TECH_COLORS['shadow']} !important;
+        border-radius: 14px;
+        transition: transform 140ms ease, box-shadow 140ms ease;
     }}
     div[data-testid="stPlotlyChart"]:hover {{
         transform: translateY(-1px);
+        box-shadow: 0 16px 44px rgba(0,0,0,0.10) !important;
     }}
 
     details[data-testid="stExpander"] {{
