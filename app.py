@@ -88,17 +88,20 @@ st.markdown(f"""
     
     /* Metric Cards */
     div[data-testid="stMetric"] {{
-        background: transparent !important;
-        border: none !important;
-        box-shadow: none !important;
-        transition: transform 140ms ease, background-color 140ms ease;
+        background-color: {TECH_COLORS['card_bg']} !important;
+        padding: 18px 20px !important;
+        border-radius: 12px !important;
+        box-shadow: {TECH_COLORS['shadow']} !important;
+        border: 1px solid {TECH_COLORS['border']} !important;
+        transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
     }}
     div[data-testid="stMetric"]:hover {{
-        transform: translateY(-1px);
-        background-color: rgba(13,110,253,0.05) !important;
+        transform: translateY(-2px);
+        box-shadow: 0 16px 44px rgba(0,0,0,0.10) !important;
+        border-color: rgba(13,110,253,0.16) !important;
     }}
     div[data-testid="stMetric"]:active {{
-        transform: translateY(0px);
+        transform: translateY(-1px);
     }}
     div[data-testid="stMetricLabel"] > div {{
         font-size: 24px !important;
@@ -236,31 +239,24 @@ st.markdown(f"""
         background: transparent !important;
         border: none !important;
         box-shadow: none !important;
-        transition: transform 140ms ease, background-color 140ms ease;
+        transition: transform 140ms ease;
     }}
     div[data-testid="stPlotlyChart"]:hover {{
         transform: translateY(-1px);
-        background-color: rgba(13,110,253,0.03) !important;
     }}
 
     details[data-testid="stExpander"] {{
         background: transparent !important;
         border: none !important;
         box-shadow: none !important;
-        transition: background-color 140ms ease;
-    }}
-    details[data-testid="stExpander"]:hover {{
-        background-color: rgba(13,110,253,0.03) !important;
+        transition: none;
     }}
 
     div[data-testid="stDataFrame"] {{
         background: transparent !important;
         border: none !important;
         box-shadow: none !important;
-        transition: background-color 140ms ease;
-    }}
-    div[data-testid="stDataFrame"]:hover {{
-        background-color: rgba(13,110,253,0.03) !important;
+        transition: none;
     }}
     </style>
     """, unsafe_allow_html=True)
