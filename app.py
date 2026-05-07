@@ -111,17 +111,17 @@ st.markdown(f"""
         background: #FFFFFF !important;
     }}
     section[data-testid="stSidebar"] {{
-        font-size: 18px !important;
+        font-size: 16px !important;
     }}
     section[data-testid="stSidebar"] h1 {{
-        font-size: 28px !important;
+        font-size: 24px !important;
         font-weight: 800 !important;
     }}
     section[data-testid="stSidebar"] h2 {{
-        font-size: 20px !important;
+        font-size: 18px !important;
     }}
     .stMultiSelect label, .stSelectbox label {{
-        font-size: 18px !important;
+        font-size: 16px !important;
         font-weight: 700 !important;
     }}
     
@@ -169,10 +169,10 @@ st.markdown(f"""
         box-shadow: none !important;
     }}
     section[data-testid="stSidebar"] [data-baseweb="select"] {{
-        font-size: 18px !important;
+        font-size: 16px !important;
     }}
     section[data-testid="stSidebar"] [data-baseweb="select"] input {{
-        font-size: 18px !important;
+        font-size: 16px !important;
     }}
     section[data-testid="stSidebar"] [data-baseweb="select"] > div:focus-within {{
         border-color: rgba(13,110,253,0.45) !important;
@@ -184,7 +184,7 @@ st.markdown(f"""
         color: {TECH_COLORS['primary']} !important;
         border-radius: 999px !important;
         font-weight: 700 !important;
-        font-size: 16px !important;
+        font-size: 14px !important;
     }}
     section[data-testid="stSidebar"] [data-baseweb="tag"] span {{
         color: {TECH_COLORS['primary']} !important;
@@ -206,7 +206,7 @@ st.markdown(f"""
         margin: 6px 0 14px 0;
     }}
     .guide-box p {{
-        font-size: 18px;
+        font-size: 16px;
         font-weight: 500;
         color: {TECH_COLORS['text_sub']};
         margin: 0;
