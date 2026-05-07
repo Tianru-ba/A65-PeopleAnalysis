@@ -93,6 +93,15 @@ st.markdown(f"""
         border-radius: 12px !important;
         box-shadow: {TECH_COLORS['shadow']} !important;
         border: 1px solid {TECH_COLORS['border']} !important;
+        transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
+    }}
+    div[data-testid="stMetric"]:hover {{
+        transform: translateY(-2px);
+        box-shadow: 0 16px 44px rgba(0,0,0,0.10) !important;
+        border-color: rgba(13,110,253,0.16) !important;
+    }}
+    div[data-testid="stMetric"]:active {{
+        transform: translateY(-1px);
     }}
     div[data-testid="stMetricLabel"] > div {{
         font-size: 24px !important;
@@ -103,6 +112,20 @@ st.markdown(f"""
         font-size: 42px !important;
         font-weight: 800 !important;
         color: {TECH_COLORS['primary']} !important;
+    }}
+
+    div[data-testid="stHorizontalBlock"] {{
+        gap: 14px;
+    }}
+    div[data-testid="column"] {{
+        padding-left: 6px;
+        padding-right: 6px;
+    }}
+
+    hr {{
+        border: none;
+        border-top: 1px solid {TECH_COLORS['border']};
+        margin: 18px 0;
     }}
     
     /* Sidebar (Drawer-like) */
@@ -210,6 +233,43 @@ st.markdown(f"""
         font-weight: 500;
         color: {TECH_COLORS['text_sub']};
         margin: 0;
+    }}
+
+    div[data-testid="stPlotlyChart"] {{
+        background: #FFFFFF;
+        border: 1px solid {TECH_COLORS['border']};
+        border-radius: 14px;
+        box-shadow: {TECH_COLORS['shadow']};
+        padding: 10px 12px 6px 12px;
+        transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
+    }}
+    div[data-testid="stPlotlyChart"]:hover {{
+        transform: translateY(-2px);
+        box-shadow: 0 16px 44px rgba(0,0,0,0.10);
+        border-color: rgba(13,110,253,0.14);
+    }}
+
+    details[data-testid="stExpander"] {{
+        background: #FFFFFF;
+        border: 1px solid {TECH_COLORS['border']};
+        border-radius: 14px;
+        box-shadow: {TECH_COLORS['shadow']};
+        overflow: hidden;
+    }}
+    details[data-testid="stExpander"] > summary {{
+        padding: 12px 14px !important;
+        font-weight: 800 !important;
+    }}
+    details[data-testid="stExpander"]:hover {{
+        border-color: rgba(13,110,253,0.14);
+    }}
+
+    div[data-testid="stDataFrame"] {{
+        background: #FFFFFF;
+        border: 1px solid {TECH_COLORS['border']};
+        border-radius: 14px;
+        box-shadow: {TECH_COLORS['shadow']};
+        overflow: hidden;
     }}
     </style>
     """, unsafe_allow_html=True)
